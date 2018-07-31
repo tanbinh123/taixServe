@@ -1,0 +1,113 @@
+<!--
+  Generated template for the CreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary" hideBackButton="true">
+        <ion-title>更新订单</ion-title>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-buttons right>
+            <button ion-button icon-only (click)="update(item)">
+                    提交
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车时间</ion-label>
+            <ion-label color="dark">{{item.AppointDate}}</ion-label>
+        </ion-item>
+
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车路线</ion-label>
+            <ion-input placeholder="起始地点" [(ngModel)]="item.Departure" readonly="true" (focus)='departureSearch()'></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed></ion-label>
+            <ion-input placeholder="目的地" [(ngModel)]="item.Destination" readonly="true" (focus)='destinationSearch()'></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>所属公司</ion-label>
+            <ion-select placeholder="请选择" [(ngModel)]="item.CompanyId.Id" (ngModelChange)='fill(item)'>
+                <ion-option *ngFor="let item of company" showWhen="isShow" value="{{item.Id}}">{{item.Name}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>里程数</ion-label>
+            <ion-input [(ngModel)]="item.Km" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>价格</ion-label>
+            <ion-input [(ngModel)]="item.Price" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>司机价格</ion-label>
+            <ion-input [(ngModel)]="item.DriverPrice" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>车次航班</ion-label>
+            <ion-input [(ngModel)]="item.Passpoint"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>派车人姓名</ion-label>
+            <ion-input [(ngModel)]="item.DispatcherId.Name" readonly="true" (focus)='dispatcherSearch(item)'></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>派车人电话</ion-label>
+            <ion-input [(ngModel)]="item.DispatcherId.Phone" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车人姓名</ion-label>
+            <ion-input [(ngModel)]="item.PassagerId.Name" readonly="true" (focus)="passagerSearch(item)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车人电话</ion-label>
+            <ion-input [(ngModel)]="item.PassagerId.Phone" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车人数</ion-label>
+            <ion-input [(ngModel)]="item.Number" type="number" pattern="[0-9]*"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>司&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</ion-label>
+            <ion-select placeholder="请选择" [(ngModel)]="item.DriverId.Id" (ngModelChange)="selectDriver(item)">
+                <ion-option *ngFor="let per of persons" showWhen="isShow" value="{{per.Id}}">{{per.Name}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;辆</ion-label>
+            <ion-select placeholder="请选择" [(ngModel)]="item.CarId.Id">
+                <ion-option *ngFor="let item of items" value="{{item.CarId.Id}}">{{item.CarId.Carnum}}</ion-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+    <button ion-button color="danger" full (click)="pushTodriver(item.Id)">重新推送</button>
+</ion-content>

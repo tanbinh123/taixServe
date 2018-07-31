@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-navbar color="primary" hideBackButton="true">
+        <ion-title>
+            订车管理系统
+        </ion-title>
+        <ion-buttons left>
+            <button ion-button icon-only (click)=goCreate()>
+                <ion-icon name="create"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-buttons right>
+            <button ion-button icon-only (click)="loginOut()">
+          <ion-icon name="exit"></ion-icon>
+        </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list *ngIf="items">
+        <ion-item-sliding *ngFor="let item of items;let key = index">
+            <!-- style="box-shadow: 2px 2px 5px #333333;" -->
+            <button ion-item (click)="inDetails(item)">
+                    <span ion-text ion-start class="item-bold">{{item.PassagerId.Name}}</span>
+                    <span ion-text ion-start style="display: inline-block;border: 1px solid #332a2a;font-size:10px;border-radius: 3px;">{{item.Type}}</span>
+                    <!--  item-end <span ion-text ion-start>{{item.PassagerId.Phone}}</span> -->
+                    <span style="right:0;color: #808080;float:right;">
+                        {{item.State}}>
+                    </span>
+                    <!-- <span item-end ><ion-icon md="ios-arrow-forward"></ion-icon></span> -->
+                    <div style="height:30px;margin-top:5px;">
+                        <img src="././assets/imgs/ico－4.png" alt="" class="first-content-img"  >
+                        <p>&nbsp;&nbsp;{{item.AppointDate}}</p>
+                    </div>
+                    <div style="height:30px;">
+                        <img src="././assets/imgs/ico－5.png" alt="" class="middle-content-img" >
+                        <p>&nbsp;&nbsp;{{item.Departure}}</p>
+                    </div>
+                    <div style="height:30px;">
+                        <img src="././assets/imgs/ico－6.png" alt="" class="last-content-img" >
+                        <p>&nbsp;&nbsp;{{item.Destination}}</p>
+                    </div>
+                </button>
+
+
+            <ion-item-options>
+                <button ion-button color="secondary" (click)="goSpell(item)" icon-start>
+                    <ion-icon name="add"></ion-icon>
+                    拼单
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+    <div class="title" *ngIf="items==''">
+        <p>暂无订单数据！如存在订单信息，请下拉刷新！
+            <p>
+    </div>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="50%">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载更多..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <ion-item>
+        <p style="text-align: center">{{message}}</p>
+    </ion-item>
+</ion-content>

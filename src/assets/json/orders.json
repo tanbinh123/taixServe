@@ -1,0 +1,36 @@
+{
+    "CarId": {
+        "Id": null
+    },
+    "CompanyId": {
+        "Id": null
+    },
+    "DispatcherId": {
+        "CompanyId": {
+            "Id": 0
+        },
+        "Id": 0,
+        "Name": null,
+        "Phone": null,
+        "Roleid": { "Id": 5 }
+    },
+    "PassagerId": {
+        "CompanyId": {
+            "Id": 0
+        },
+        "Id": 0,
+        "Name": null,
+        "Phone": null,
+        "Roleid": { "Id": 6 }
+    },
+    "DriverId": {
+        "Id": null
+    },
+    "Departure": null,
+    "Destination": null,
+    "Km": null,
+    "Number": null,
+    "Date": null,
+    "AppointDate": null,
+    "Price": null
+}

@@ -1,0 +1,109 @@
+<!--
+  Generated template for the CreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary" hideBackButton="true">
+        <ion-title>拼单</ion-title>
+
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+                    <ion-icon name="arrow-back"></ion-icon>
+                </button>
+        </ion-buttons>
+
+        <ion-buttons right>
+            <button ion-button icon-only (click)="createServe()">
+                        提交
+                </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车时间</ion-label>
+            <ion-label color="dark">{{orders.AppointDate}}</ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车路线</ion-label>
+            <ion-label color="dark">{{orders.Departure}}</ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed></ion-label>
+            <ion-label color="dark">{{orders.Destination}}</ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>所属公司</ion-label>
+            <ion-select placeholder="请选择" [(ngModel)]="orders.CompanyId.Id">
+                <ion-option *ngFor="let item of company" showWhen="isShow" value="{{item.Id}}">{{item.Name}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>里程数</ion-label>
+            <ion-input [(ngModel)]="orders.Km" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>价格</ion-label>
+            <ion-input [(ngModel)]="orders.Price" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>司机价格</ion-label>
+            <ion-input [(ngModel)]="orders.DriverPrice" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>车次航班</ion-label>
+            <ion-input [(ngModel)]="orders.Passpoint"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>派车人姓名</ion-label>
+            <ion-input [(ngModel)]="orders.DispatcherId.Name" readonly="true" (tap)='dispatcherSearch(orders)'></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>派车人电话</ion-label>
+            <ion-input [(ngModel)]="orders.DispatcherId.Phone" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车人姓名</ion-label>
+            <ion-input [(ngModel)]="orders.PassagerId.Name" readonly="true" (tap)="passagerSearch(orders)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车人电话</ion-label>
+            <ion-input [(ngModel)]="orders.PassagerId.Phone" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车人数</ion-label>
+            <ion-input [(ngModel)]="orders.Number" type="number" pattern="[0-9]*"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>司&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</ion-label>
+            <ion-label color="dark">{{orders.DriverId.Name}}</ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;辆</ion-label>
+            <ion-label color="dark">{{orders.CarId.Carnum}}</ion-label>
+        </ion-item>
+
+    </ion-list>
+</ion-content>

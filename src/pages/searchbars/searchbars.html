@@ -1,0 +1,31 @@
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-searchbar [(ngModel)]="keywords" placeholder="姓名" #myInput></ion-searchbar>
+
+        <ion-buttons end>
+            <button ion-button (tap)='getSearchList()'>
+                   搜索
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+<ion-content>
+    <div *ngIf="flag">
+        <ion-list>
+            <button ion-item *ngFor="let item of items" (click)="goBack(item)">
+                <span>{{ item.Name }},</span>
+                <span>{{ item.Phone }}</span>
+            </button>
+            <ion-item *ngIf="msg">
+                <p style="text-align: center">{{msg}}</p>
+            </ion-item>
+        </ion-list>
+        <hr>
+        <p style="text-align: center">没有合适的结果？是否添加本次检索关键词？</p>
+        <button ion-button (click)="addKeywords()" block>添加</button>
+
+    </div>
+
+</ion-content>

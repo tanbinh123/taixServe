@@ -1,0 +1,115 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>新建订单</ion-title>
+        <ion-buttons end>
+            <button ion-button type="submit" icon-only (click)="createServe()">
+          提交
+        </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <div padding>
+            <ion-segment [(ngModel)]="date">
+                <ion-segment-button value="现在" (click)="clickClear(0)">
+                    现在订车
+                </ion-segment-button>
+                <ion-segment-button value="预约" (click)="clickClear(1)">
+                    预约用车
+                </ion-segment-button>
+            </ion-segment>
+        </div>
+        <div [ngSwitch]="date">
+            <ion-list *ngSwitchCase="'现在'">
+                <ion-item>
+                    <ion-input [(ngModel)]="currentTime" readonly="true"></ion-input>
+                </ion-item>
+            </ion-list>
+            <ion-list *ngSwitchCase="'预约'">
+                <ion-item>
+                    <ion-datetime placeholder="请选择预约时间" displayFormat="YYYY/MM/DD HH:mm" [(ngModel)]="orders.AppointDate"></ion-datetime>
+                </ion-item>
+            </ion-list>
+        </div>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车路线</ion-label>
+            <ion-input placeholder="起始地点" [(ngModel)]="orders.Departure" readonly="true" (ionFocus)='departureSearch()'></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed></ion-label>
+            <ion-input placeholder="目的地" [(ngModel)]="orders.Destination" readonly="true" (ionFocus)='destinationSearch()'></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>所属公司</ion-label>
+            <ion-select placeholder="请选择" [(ngModel)]="orders.CompanyId.Id" (ngModelChange)='fill(orders)'>
+                <ion-option *ngFor="let item of company" showWhen="isShow" value="{{item.Id}}">{{item.Name}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>里程数</ion-label>
+            <ion-input [(ngModel)]="orders.Km" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>价格</ion-label>
+            <ion-input [(ngModel)]="orders.Price" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>司机价格</ion-label>
+            <ion-input [(ngModel)]="orders.DriverPrice" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>车次航班</ion-label>
+            <ion-input [(ngModel)]="orders.Passpoint"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>派车人姓名</ion-label>
+            <ion-input [(ngModel)]="orders.DispatcherId.Name" readonly="true" (ionFocus)='dispatcherSearch(orders)'></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>派车人电话</ion-label>
+            <ion-input [(ngModel)]="orders.DispatcherId.Phone" (ionFocus)='blurInput(orders)' type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车人姓名</ion-label>
+            <ion-input [(ngModel)]="orders.PassagerId.Name" readonly="true" (ionFocus)="passagerSearch(orders)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车人电话</ion-label>
+            <ion-input [(ngModel)]="orders.PassagerId.Phone" (ionFocus)='blurInput(orders)' type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>用车人数</ion-label>
+            <ion-input [(ngModel)]="orders.Number" type="number" pattern="[0-9]*"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>选择司机</ion-label>
+            <ion-select placeholder="请选择" [(ngModel)]="orders.DriverId.Id" (ngModelChange)="selectDriver(orders)">
+                <ion-option *ngFor="let item of persons" showWhen="isShow" value="{{item.Id}}">{{item.Name}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>选择车辆</ion-label>
+            <ion-select placeholder="请选择" [(ngModel)]="orders.CarId.Id">
+                <ion-option *ngFor="let item of items" value="{{item.CarId.Id}}">{{item.CarId.Carnum}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+    </ion-list>
+
+</ion-content>
