@@ -63,8 +63,8 @@ export class CreatePage {
     "Number": null,//乘车人数
     "Date": null,
     "AppointDate": null,
-    "Price": null,//价格
-    "DriverPrice":null,
+    "Price": 0,//价格
+    "DriverPrice":0,
     "Type":"订单",
     "State": "待处理",
     "SendState": "待处理",
@@ -186,7 +186,7 @@ passagerSearch(item){
     } else if (this.orders.Km == null || this.orders.Km == "") {
       this.presentAlert("请输入里程数")
       return
-    } else if (this.orders.Price == null || this.orders.Price == "") {
+    } else if (this.orders.Price == null || this.orders.Price == 0) {
       this.presentAlert("请输入价格")
       return
     } else if (this.orders.CompanyId.Id == null || this.orders.CompanyId.Id == "") {
@@ -198,16 +198,18 @@ passagerSearch(item){
     } else if (this.orders.DispatcherId.Phone == null || this.orders.DispatcherId.Phone == "") {
       this.presentAlert("请输入派车人电话号")
       return
-    } else if (this.orders.PassagerId.Name == null || this.orders.PassagerId.Name == "") {
-      this.presentAlert("请输入乘车人信息")
-      return
-    } else if (this.orders.PassagerId.Phone == null || this.orders.PassagerId.Phone == "") {
-      this.presentAlert("请输入乘车人电话号")
-      return
-    } else if (this.orders.Number == null || this.orders.Number == "") {
-      this.presentAlert("请选择用车人数")
-      return
-    } else if (this.orders.AppointDate == null && this.orders.CarId.Id == null || this.orders.CarId.Id == "") {
+    } 
+    // else if (this.orders.PassagerId.Name == null || this.orders.PassagerId.Name == "") {
+    //   this.presentAlert("请输入乘车人信息")
+    //   return
+    // } else if (this.orders.PassagerId.Phone == null || this.orders.PassagerId.Phone == "") {
+    //   this.presentAlert("请输入乘车人电话号")
+    //   return
+    // } else if (this.orders.Number == null || this.orders.Number == "") {
+    //   this.presentAlert("请选择用车人数")
+    //   return
+    // }
+     else if (this.orders.AppointDate == null && this.orders.CarId.Id == null || this.orders.CarId.Id == "") {
       this.presentAlert("请选择车辆信息")
       return
     } else if (this.orders.AppointDate == null && this.orders.DriverId.Id == null || this.orders.DriverId.Id == "") {
@@ -229,10 +231,10 @@ passagerSearch(item){
       this.orders.DriverId.Id = parseInt(this.orders.DriverId.Id);
       this.orders.Km = parseInt(this.orders.Km);
       this.orders.Number = parseInt(this.orders.Number);
-      this.orders.Price = parseInt(this.orders.Price);
+      this.orders.Price = this.orders.Price;
       this.orders.DispatcherId.CompanyId.Id=this.orders.CompanyId.Id;
       this.orders.PassagerId.CompanyId.Id=this.orders.CompanyId.Id;
-      this.orders.DriverPrice=parseInt(this.orders.DriverPrice);
+      this.orders.DriverPrice=this.orders.DriverPrice;
       
       
       
@@ -342,10 +344,10 @@ passagerSearch(item){
     this.httpServers.requestData(that.flag,'/trip/?query=Departure:'+item.Departure+
     ',Destination:'+item.Destination+',CompanyId.Id:'+item.CompanyId.Id, that.storage.get("userinfo"), (data) => {
       // console.log(data);
-      if(data){
-        that.orders.Km =data[0].Km;
-        that.orders.Price= data[0].Price;
-      }
+      // if(data){
+      //   that.orders.Km =data[0].Km;
+      //   that.orders.Price= data[0].Price;
+      // }
     });
   }
   selectDriver(orders){

@@ -30,16 +30,16 @@ import { SearchDesPage } from '../pages/search-des/search-des';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
     //ionic cordova build android --prod --release 打包注释
-    // CreatePage,
-    // LoginPage,
-    // DetailsPage,
-    // ErrorPage,
-    // SpellPage,
-    // SearchbarsPage,
-    // SearchplacePage,
-    // SearchDesPage
+    CreatePage,
+    LoginPage,
+    DetailsPage,
+    ErrorPage,
+    SpellPage,
+    SearchbarsPage,
+    SearchplacePage,
+    SearchDesPage
   ],
   imports: [
     BrowserModule,
