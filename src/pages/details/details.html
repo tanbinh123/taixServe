@@ -35,22 +35,22 @@
 
         <ion-item>
             <ion-label color="dark" fixed>用车路线</ion-label>
-            <ion-textarea placeholder="用车信息" [(ngModel)]="item.Departure"></ion-textarea>
+            <ion-textarea placeholder="用车信息" [(ngModel)]="item.Info"></ion-textarea>
         </ion-item>
 
         <ion-item>
             <ion-label color="dark" fixed>起点</ion-label>
-            <ion-input placeholder="起始地点" [(ngModel)]="item.Departure" readonly="true" (focus)='departureSearch()'></ion-input>
+            <ion-input placeholder="起始地点" [(ngModel)]="item.Departure.Location" readonly="true" (focus)='departureSearch()'></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label color="dark" fixed>终点</ion-label>
-            <ion-input placeholder="目的地" [(ngModel)]="item.Destination" readonly="true" (focus)='destinationSearch()'></ion-input>
+            <ion-input placeholder="目的地" [(ngModel)]="item.Destination.Location" readonly="true" (focus)='destinationSearch()'></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label color="dark" fixed>所属公司</ion-label>
-            <ion-select placeholder="请选择" [(ngModel)]="item.CompanyId.Id" (ngModelChange)='fill(item)'>
+            <ion-select placeholder="请选择" [(ngModel)]="item.CompanyId.Id">
                 <ion-option *ngFor="let item of company" showWhen="isShow" value="{{item.Id}}">{{item.Name}}</ion-option>
             </ion-select>
         </ion-item>
@@ -112,6 +112,10 @@
             <ion-select placeholder="请选择" [(ngModel)]="item.CarId.Id">
                 <ion-option *ngFor="let item of items" value="{{item.CarId.Id}}">{{item.CarId.Carnum}}</ion-option>
             </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label color="dark" fixed>备注</ion-label>
+            <ion-input [(ngModel)]="item.Make"></ion-input>
         </ion-item>
     </ion-list>
     <button ion-button color="danger" full (click)="pushTodriver(item.Id)">重新推送</button>

@@ -184,15 +184,14 @@ passagerSearch(item){
     if (this.orders.AppointDate == null && this.currentTime == null) {
       this.presentAlert("请输入用车时间")
       return
-    } 
-    else if (this.orders.Info == null && this.orders.Info == "") {
-      this.presentAlert("请输入用车形成")
+    } else if (this.orders.Info == null || this.orders.Info == "") {
+      this.presentAlert("请输入用车路线")
+      return
+    }else if (this.orders.CompanyId.Id == null || this.orders.CompanyId.Id == "") {
+      this.presentAlert("请选择公司信息")
       return
     } else if (this.orders.Price == null || this.orders.Price == 0) {
       this.presentAlert("请输入价格")
-      return
-    } else if (this.orders.CompanyId.Id == null || this.orders.CompanyId.Id == "") {
-      this.presentAlert("请选择公司信息")
       return
     } else if (this.orders.DispatcherId.Name == null || this.orders.DispatcherId.Name == "") {
       this.presentAlert("请输入派车人信息")
@@ -200,13 +199,13 @@ passagerSearch(item){
     } else if (this.orders.DispatcherId.Phone == null || this.orders.DispatcherId.Phone == "") {
       this.presentAlert("请输入派车人电话号")
       return
-    }  else if (this.orders.AppointDate == null && this.orders.CarId.Id == null || this.orders.CarId.Id == "") {
-      this.presentAlert("请选择车辆信息")
-      return
     } else if (this.orders.AppointDate == null && this.orders.DriverId.Id == null || this.orders.DriverId.Id == "") {
       this.presentAlert("请选择司机信息")
       return
-    }  else {
+    } else if (this.orders.AppointDate == null && this.orders.CarId.Id == null || this.orders.CarId.Id == "") {
+      this.presentAlert("请选择车辆信息")
+      return
+    } else {
       if (this.orders.AppointDate == null || this.orders.AppointDate == "") {
         this.orders.AppointDate = this.currentTime;
       }

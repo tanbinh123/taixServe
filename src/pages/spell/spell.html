@@ -35,12 +35,17 @@
 
         <ion-item>
             <ion-label color="dark" fixed>用车路线</ion-label>
-            <ion-label color="dark">{{orders.Departure}}</ion-label>
+            <ion-textarea placeholder="用车信息" [(ngModel)]="orders.Info"></ion-textarea>
         </ion-item>
 
         <ion-item>
-            <ion-label color="dark" fixed></ion-label>
-            <ion-label color="dark">{{orders.Destination}}</ion-label>
+            <ion-label color="dark" fixed>起点</ion-label>
+            <ion-input placeholder="起始地点" [(ngModel)]="orders.Departure.Location" readonly="true" (focus)='departureSearch()'></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>终点</ion-label>
+            <ion-input placeholder="目的地" [(ngModel)]="orders.Destination.Location" readonly="true" (focus)='destinationSearch()'></ion-input>
         </ion-item>
 
         <ion-item>
@@ -50,25 +55,21 @@
             </ion-select>
         </ion-item>
 
-        <ion-item>
+        <!-- <ion-item>
             <ion-label color="dark" fixed>里程数</ion-label>
             <ion-input [(ngModel)]="orders.Km" type="number"></ion-input>
-        </ion-item>
+        </ion-item> -->
 
         <ion-item>
             <ion-label color="dark" fixed>价格</ion-label>
             <ion-input [(ngModel)]="orders.Price" type="number"></ion-input>
         </ion-item>
 
-        <ion-item>
+        <!-- <ion-item>
             <ion-label color="dark" fixed>司机价格</ion-label>
             <ion-input [(ngModel)]="orders.DriverPrice" type="number"></ion-input>
-        </ion-item>
+        </ion-item> -->
 
-        <ion-item>
-            <ion-label color="dark" fixed>车次航班</ion-label>
-            <ion-input [(ngModel)]="orders.Passpoint"></ion-input>
-        </ion-item>
 
         <ion-item>
             <ion-label color="dark" fixed>派车人姓名</ion-label>
@@ -81,21 +82,6 @@
         </ion-item>
 
         <ion-item>
-            <ion-label color="dark" fixed>用车人姓名</ion-label>
-            <ion-input [(ngModel)]="orders.PassagerId.Name" readonly="true" (tap)="passagerSearch(orders)"></ion-input>
-        </ion-item>
-
-        <ion-item>
-            <ion-label color="dark" fixed>用车人电话</ion-label>
-            <ion-input [(ngModel)]="orders.PassagerId.Phone" type="number"></ion-input>
-        </ion-item>
-
-        <ion-item>
-            <ion-label color="dark" fixed>用车人数</ion-label>
-            <ion-input [(ngModel)]="orders.Number" type="number" pattern="[0-9]*"></ion-input>
-        </ion-item>
-
-        <ion-item>
             <ion-label color="dark" fixed>司&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</ion-label>
             <ion-label color="dark">{{orders.DriverId.Name}}</ion-label>
         </ion-item>
@@ -103,6 +89,11 @@
         <ion-item>
             <ion-label color="dark" fixed>车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;辆</ion-label>
             <ion-label color="dark">{{orders.CarId.Carnum}}</ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="dark" fixed>备注</ion-label>
+            <ion-input [(ngModel)]="orders.Make"></ion-input>
         </ion-item>
 
     </ion-list>

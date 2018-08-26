@@ -51,9 +51,18 @@ export class DetailsPage {
     "DriverId": {//司机
       "Id": null
     },
-    "Departure": null,
-    "Destination": null,
+    "Departure": {
+      "Id": 0,
+      "Location": null
+    },
+    "Destination": {
+      "Id": 0,
+      "Location": null
+    },
     "Km":null,
+    "Info":null,
+    "Make":null,
+    "DriverPrice":null,
     "Number": null,//乘车人数
     "Date": null,
     "AppointDate": null,
@@ -150,7 +159,7 @@ export class DetailsPage {
   departureSearch(){
     this.events.subscribe('departure-events', (paramsVar) => {
         console.log(paramsVar);
-        this.item.Departure=paramsVar.Departure
+        this.item.Departure.Location=paramsVar.Departure
         this.events.unsubscribe('departure-events'); 
     })
         this.navCtrl.push(SearchplacePage); 
@@ -160,7 +169,7 @@ export class DetailsPage {
   destinationSearch(){
     this.events.subscribe('destination-events', (paramsVar) => {
         console.log(paramsVar);
-        this.item.Destination=paramsVar.Destination;
+        this.item.Destination.Location=paramsVar.Destination;
         this.events.unsubscribe('destination-events'); 
     })
         this.navCtrl.push(SearchDesPage); 

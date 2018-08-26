@@ -26,7 +26,8 @@ export class SpellPage {
       "Id": null
     },
     "CompanyId": {//公司
-      "Id": null
+      "Id": null,
+      "Name":null
     },
     "DispatcherId": {//派车人
       "Id": 0,
@@ -41,10 +42,19 @@ export class SpellPage {
     "DriverId": {//司机
       "Id": null
     },
-    "Departure": null,
-    "Destination": null,
+    "Departure": {
+      "Id": 0,
+      "Location": null
+    },
+    "Destination": {
+      "Id": 0,
+      "Location": null
+    },
     "Km":null,
-    "Type":null,
+    "Info":null,
+    "Make":null,
+    "DriverPrice":null,
+    "Type":"拼单",
     "Number": null,//乘车人数
     "Date": null,
     "AppointDate": null,
@@ -73,7 +83,7 @@ export class SpellPage {
 
   ionViewDidLoad() {
     this.orders=this.navParams.data.item;
-    console.log(this.orders.Type);
+    console.log(this.orders);
     
 
     if(this.orders.Type!="订单"){
@@ -84,25 +94,28 @@ export class SpellPage {
     this.orders.CompanyId.Id=null
     this.orders.DispatcherId.Name=null
     this.orders.DispatcherId.Phone=null
-    this.orders.PassagerId.Name=null
-    this.orders.PassagerId.Phone=null
+    // this.orders.PassagerId.Name=null
+    // this.orders.PassagerId.Phone=null
+    this.orders.Info=null
     this.orders.Id=null
+    this.orders.Price=null
+    // this.orders.DriverPrice=null
   }
   //回显创建数据
   requestData() {
     var that = this;
     //获取公司信息
-    this.httpServers.requestData(that.flag,'/company', this.storage.get("userinfo"), function (data) {
+    this.httpServers.requestData(that.flag,'/company/?limit=10000', this.storage.get("userinfo"), function (data) {
       // console.log(data); 
       that.company = data;
     });
     //获取车辆信息
-    this.httpServers.requestData(that.flag,'/car_driver', this.storage.get("userinfo"), function (data) {
+    this.httpServers.requestData(that.flag,'/car_driver/?limit=10000', this.storage.get("userinfo"), function (data) {
       // console.log(data); 
       that.items = data;
     });
     //获取司机信息
-    this.httpServers.requestData(that.flag,'/drivers', this.storage.get("userinfo"), function (data) {
+    this.httpServers.requestData(that.flag,'/drivers/?limit=10000', this.storage.get("userinfo"), function (data) {
       // console.log(data); 
       that.persons = data;
     });
@@ -142,13 +155,13 @@ passagerSearch(item){
   this.events.subscribe('passager-events', (paramsVar) => {
 
         //  console.log( paramsVar);
-        if(paramsVar.Id){
-          this.orders.PassagerId.Id=paramsVar.Id
-          this.orders.PassagerId.Name=paramsVar.Name
-          this.orders.PassagerId.Phone=paramsVar.Phone
-        }else{
-          this.orders.PassagerId.Name=paramsVar
-        }
+        // if(paramsVar.Id){
+        //   this.orders.PassagerId.Id=paramsVar.Id
+        //   this.orders.PassagerId.Name=paramsVar.Name
+        //   this.orders.PassagerId.Phone=paramsVar.Phone
+        // }else{
+        //   this.orders.PassagerId.Name=paramsVar
+        // }
         
         //  console.log(this.orders);
          this.events.unsubscribe('passager-events'); 
@@ -164,8 +177,14 @@ passagerSearch(item){
 
  //创建订单方法
  createServe() {
-  if (this.orders.CompanyId.Id == null || this.orders.CompanyId.Id == "") {
+ if (this.orders.Info == null || this.orders.Info == "") {
+    this.presentAlert("请输入用车路线")
+    return
+  }else if (this.orders.CompanyId.Id == null || this.orders.CompanyId.Id == "") {
     this.presentAlert("请选择公司信息")
+    return
+  } else if (this.orders.Price == null || this.orders.Price == 0) {
+    this.presentAlert("请输入价格")
     return
   } else if (this.orders.DispatcherId.Name == null || this.orders.DispatcherId.Name == "") {
     this.presentAlert("请输入派车人信息")
@@ -173,16 +192,7 @@ passagerSearch(item){
   } else if (this.orders.DispatcherId.Phone == null || this.orders.DispatcherId.Phone == "") {
     this.presentAlert("请输入派车人电话号")
     return
-  } else if (this.orders.PassagerId.Name == null || this.orders.PassagerId.Name == "") {
-    this.presentAlert("请输入乘车人信息")
-    return
-  } else if (this.orders.PassagerId.Phone == null || this.orders.PassagerId.Phone == "") {
-    this.presentAlert("请输入乘车人电话号")
-    return
-  } else if (this.orders.Number == null || this.orders.Number == "") {
-    this.presentAlert("请选择用车人数")
-    return
-  }  {
+  }  else  {
     //字符串转换int
     this.orders.CarId.Id = parseInt(this.orders.CarId.Id);
     this.orders.CompanyId.Id = parseInt(this.orders.CompanyId.Id);
@@ -191,7 +201,7 @@ passagerSearch(item){
     this.orders.Number = parseInt(this.orders.Number);
     this.orders.Price = parseInt(this.orders.Price);
 
-    // console.log(this.orders);
+    console.log(this.orders);
     
     this.httpServers.doPost("/orders", this.orders, this.storage.get("userinfo"), (data) => {
       // console.log(JSON.parse(data["_body"]));
