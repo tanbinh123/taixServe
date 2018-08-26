@@ -57,14 +57,21 @@ export class CreatePage {
     "DriverId": {//司机
       "Id": null
     },
-    "Departure": null,
-    "Destination": null,
+    "Departure": {
+      "Id": 0,
+      "Location": null
+    },
+    "Destination": {
+      "Id": 0,
+      "Location": null
+    },
     "Km":null,
+    "Info":null,
     "Number": null,//乘车人数
     "Date": null,
     "AppointDate": null,
-    "Price": 0,//价格
-    "DriverPrice":0,
+    "Price": null,//价格
+    "DriverPrice":null,
     "Type":"订单",
     "State": "待处理",
     "SendState": "待处理",
@@ -177,14 +184,9 @@ passagerSearch(item){
     if (this.orders.AppointDate == null && this.currentTime == null) {
       this.presentAlert("请输入用车时间")
       return
-    } else if (this.orders.Departure == null && this.orders.Departure == "") {
-      this.presentAlert("请输入起始地点")
-      return
-    } else if (this.orders.Destination == null || this.orders.Destination == "") {
-      this.presentAlert("请输入目的地")
-      return
-    } else if (this.orders.Km == null || this.orders.Km == "") {
-      this.presentAlert("请输入里程数")
+    } 
+    else if (this.orders.Info == null && this.orders.Info == "") {
+      this.presentAlert("请输入用车形成")
       return
     } else if (this.orders.Price == null || this.orders.Price == 0) {
       this.presentAlert("请输入价格")
@@ -198,18 +200,7 @@ passagerSearch(item){
     } else if (this.orders.DispatcherId.Phone == null || this.orders.DispatcherId.Phone == "") {
       this.presentAlert("请输入派车人电话号")
       return
-    } 
-    // else if (this.orders.PassagerId.Name == null || this.orders.PassagerId.Name == "") {
-    //   this.presentAlert("请输入乘车人信息")
-    //   return
-    // } else if (this.orders.PassagerId.Phone == null || this.orders.PassagerId.Phone == "") {
-    //   this.presentAlert("请输入乘车人电话号")
-    //   return
-    // } else if (this.orders.Number == null || this.orders.Number == "") {
-    //   this.presentAlert("请选择用车人数")
-    //   return
-    // }
-     else if (this.orders.AppointDate == null && this.orders.CarId.Id == null || this.orders.CarId.Id == "") {
+    }  else if (this.orders.AppointDate == null && this.orders.CarId.Id == null || this.orders.CarId.Id == "") {
       this.presentAlert("请选择车辆信息")
       return
     } else if (this.orders.AppointDate == null && this.orders.DriverId.Id == null || this.orders.DriverId.Id == "") {
@@ -229,12 +220,12 @@ passagerSearch(item){
       this.orders.CarId.Id = parseInt(this.orders.CarId.Id);
       this.orders.CompanyId.Id = parseInt(this.orders.CompanyId.Id);
       this.orders.DriverId.Id = parseInt(this.orders.DriverId.Id);
-      this.orders.Km = parseInt(this.orders.Km);
+      // this.orders.Km = parseInt(this.orders.Km);
       this.orders.Number = parseInt(this.orders.Number);
-      this.orders.Price = this.orders.Price;
+      this.orders.Price =  parseInt(this.orders.Price);
       this.orders.DispatcherId.CompanyId.Id=this.orders.CompanyId.Id;
       this.orders.PassagerId.CompanyId.Id=this.orders.CompanyId.Id;
-      this.orders.DriverPrice=this.orders.DriverPrice;
+      this.orders.DriverPrice=parseInt(this.orders.DriverPrice);
       
       
       
@@ -315,9 +306,9 @@ passagerSearch(item){
     this.events.subscribe('departure-events', (paramsVar) => {
         console.log(paramsVar);
         if(paramsVar.Id){
-          this.orders.Departure=paramsVar.Departure
+          this.orders.Departure.Location=paramsVar.Departure
         }else{
-          this.orders.Departure=paramsVar
+          this.orders.Departure.Location=paramsVar
         }
         this.events.unsubscribe('departure-events'); 
         
@@ -330,9 +321,9 @@ passagerSearch(item){
     this.events.subscribe('destination-events', (paramsVar) => {
         console.log(paramsVar);
         if(paramsVar.Id){
-          this.orders.Destination=paramsVar.Destination;
+          this.orders.Destination.Location=paramsVar.Destination;
         }else{
-          this.orders.Destination=paramsVar
+          this.orders.Destination.Location=paramsVar
         }
         this.events.unsubscribe('destination-events'); 
     })
@@ -341,8 +332,8 @@ passagerSearch(item){
   fill(item){
     // console.log(item);
     var that = this;
-    this.httpServers.requestData(that.flag,'/trip/?query=Departure:'+item.Departure+
-    ',Destination:'+item.Destination+',CompanyId.Id:'+item.CompanyId.Id, that.storage.get("userinfo"), (data) => {
+    this.httpServers.requestData(that.flag,'/trip/?query=Departure.Location:'+item.Departure.Location+
+    ',Destination.Location:'+item.Destination.Location+',CompanyId.Id:'+item.CompanyId.Id, that.storage.get("userinfo"), (data) => {
       // console.log(data);
       // if(data){
       //   that.orders.Km =data[0].Km;

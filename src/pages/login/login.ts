@@ -41,10 +41,9 @@ export class LoginPage {
       this.tools.presentAlert("用户名或密码不能为空！");
       return
     }else{
-      this.jpush.getRegistrationID().then(rId => {
-        this.doLogin(rId);
-        // alert(this.registrationId)
-      });
+      // this.jpush.getRegistrationID().then(rId => {
+        this.doLogin("rId");
+      // });
     }
 
   }
