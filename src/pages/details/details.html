@@ -115,7 +115,7 @@
         </ion-item>
         <ion-item>
             <ion-label color="dark" fixed>备注</ion-label>
-            <ion-input [(ngModel)]="item.Make"></ion-input>
+            <ion-textarea [(ngModel)]="item.Mark"></ion-textarea>
         </ion-item>
     </ion-list>
     <button ion-button color="danger" full (click)="pushTodriver(item.Id)">重新推送</button>

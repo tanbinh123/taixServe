@@ -5,6 +5,8 @@ import { HttpServicesProvider } from '../../providers/http-services/http-service
 import { StorageProvider } from '../../providers/storage/storage';
 import { SearchbarsPage } from '../searchbars/searchbars';
 import { HomePage } from '../home/home';
+import { SearchplacePage } from '../searchplace/searchplace';
+import { SearchDesPage } from '../search-des/search-des';
 /**
  * Generated class for the SpellPage page.
  *
@@ -52,7 +54,7 @@ export class SpellPage {
     },
     "Km":null,
     "Info":null,
-    "Make":null,
+    "Mark":null,
     "DriverPrice":null,
     "Type":"拼单",
     "Number": null,//乘车人数
@@ -99,6 +101,7 @@ export class SpellPage {
     this.orders.Info=null
     this.orders.Id=null
     this.orders.Price=null
+    this.orders.Type="拼单"
     // this.orders.DriverPrice=null
   }
   //回显创建数据
@@ -147,33 +150,26 @@ dispatcherSearch(item){
      }); 
 
 }
-// 乘车人查询
-passagerSearch(item){
-  if(item.CompanyId.Id==null){
-    return this.presentAlert("请选择公司！"); 
+
+  // 起始地点查询
+  departureSearch(){
+    this.events.subscribe('departure-events', (paramsVar) => {
+        console.log(paramsVar);
+        this.orders.Departure.Location=paramsVar.Departure
+        this.events.unsubscribe('departure-events'); 
+    })
+        this.navCtrl.push(SearchplacePage); 
   }
-  this.events.subscribe('passager-events', (paramsVar) => {
 
-        //  console.log( paramsVar);
-        // if(paramsVar.Id){
-        //   this.orders.PassagerId.Id=paramsVar.Id
-        //   this.orders.PassagerId.Name=paramsVar.Name
-        //   this.orders.PassagerId.Phone=paramsVar.Phone
-        // }else{
-        //   this.orders.PassagerId.Name=paramsVar
-        // }
-        
-        //  console.log(this.orders);
-         this.events.unsubscribe('passager-events'); 
-         
-     })
-     item.title='乘车人';
-     this.navCtrl.push(SearchbarsPage,{
-       item:item
-     }); 
-
-}
-
+  // 目的地查询
+  destinationSearch(){
+    this.events.subscribe('destination-events', (paramsVar) => {
+        console.log(paramsVar);
+        this.orders.Destination.Location=paramsVar.Destination;
+        this.events.unsubscribe('destination-events'); 
+    })
+        this.navCtrl.push(SearchDesPage); 
+  }
 
  //创建订单方法
  createServe() {

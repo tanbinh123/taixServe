@@ -61,7 +61,7 @@ export class DetailsPage {
     },
     "Km":null,
     "Info":null,
-    "Make":null,
+    "Mark":null,
     "DriverPrice":null,
     "Number": null,//乘车人数
     "Date": null,

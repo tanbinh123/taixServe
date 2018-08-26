@@ -68,6 +68,7 @@ export class CreatePage {
     "Km":null,
     "Info":null,
     "Number": null,//乘车人数
+    "Mark":null,
     "Date": null,
     "AppointDate": null,
     "Price": null,//价格
